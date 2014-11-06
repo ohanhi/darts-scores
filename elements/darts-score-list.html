@@ -1,0 +1,68 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/core-icon/core-icon.html">
+<polymer-element name="darts-score-list" attributes="player">
+  <template>
+    <style>
+    .input {
+      padding-top: 8px;
+    }
+    paper-input {
+      padding: 0;
+    }
+    paper-icon-button {
+      color: #3f51b5;
+    }
+    </style>
+    <div layout vertical>
+      <h2 class="points-remaining">{{player.name}}: {{remaining}}</h2>
+      <template repeat="{{throw in player.throws}}">
+        <div class="throw">
+          <template if="{{throw > 0}}">{{throw}}</template>
+          <template if="{{throw <= 0}}">&mdash;</template>
+        </div>
+      </template>
+      <template if="{{!isWon}}">
+        <div class="input" layout horizontal>
+          <paper-input label="Throw score" value="{{nextScore}}"></paper-input>
+          <div>
+            <paper-icon-button icon="add" on-tap="{{addThrow}}"></paper-icon-button>
+          </div>
+        </div>
+      </template>
+      <template if="{{isWon}}">
+        <h2>Woo, party time!</h2>
+      </template>
+    </div>
+  </template>
+  <script>
+    Polymer('darts-score-list', {
+      sum: function (a, b) {
+        return a+b;
+      },
+      playerChanged: function () {
+        this.isWon = false;
+        this.total = 0;
+        this.remaining = this.player.goal + this.total;
+      },
+      addThrow: function () {
+        var nextScore = parseInt(this.nextScore, 10);
+        var throws = this.player.throws;
+        if (this.total + nextScore > this.player.goal) {
+          nextScore = 0;
+        }
+        throws.push(nextScore);
+        this.nextScore = "";
+        this.total = throws.reduce(this.sum);
+        this.remaining = this.player.goal - this.total;
+      },
+      remainingChanged: function () {
+        if (this.remaining === 0) {
+          this.isWon = true;
+        }
+      }
+    });
+  </script>
+</polymer-element>

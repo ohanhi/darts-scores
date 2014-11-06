@@ -1,0 +1,25 @@
+{
+  "name": "darts-score",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ohanhi/darts-score",
+  "authors": [
+    "Ossi Hanhinen <ossi.hanhinen@gmail.com>"
+  ],
+  "main": "index.html",
+  "keywords": [
+    "Polymer",
+    "experiment"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "core-component-page": "Polymer/core-component-page#^0.4.0",
+    "paper-elements": "Polymer/paper-elements#~0.4.2"
+  }
+}

@@ -1,0 +1,74 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="darts-score-list.html">
+<polymer-element name="darts-app">
+  <style>
+  core-scroll-header-panel {
+    height: 100%;
+  }
+  html /deep/ #top-bar {
+    background-color: #3f51b5;
+    color: rgba(255,255,255,0.87);
+  }
+  html /deep/ section[content] {
+    padding: 16px;
+  }
+
+  html /deep/ paper-button {
+    background-color: #3f51b5;
+    color: rgba(255,255,255,0.87);
+  }
+
+  </style>
+  <template>
+    <core-scroll-header-panel flex>
+      <core-toolbar id="top-bar" layout vertical>
+        <div flex>Darts Scores</div>
+        <paper-icon-button icon="refresh" on-tap="{{reset}}"></paper-icon-button>
+      </core-toolbar>
+      <section content layout vertical>
+        <template if="{{!players}}">
+          <div>
+            <div>Number of players</div>
+            <paper-slider id="playerCount" value="{{playerCount}}" min="0" max="4" snaps pin editable></paper-slider>
+
+            <div flex></div>
+            <paper-button disabled="{{playerCount < 1}}" raised on-tap="{{startGame}}">Go</paper-button>
+          </div>
+        </template>
+        <template if="{{players}}">
+          <div layout horizontal>
+            <template repeat="{{player in players}}">
+              <darts-score-list player="{{player}}"></darts-score-list>
+            </template>
+          </div>
+        </template>
+      </section>
+    </core-scroll-header-panel>
+  </template>
+  <script>
+  Polymer('darts-app', {
+    created: function () {
+      this.reset();
+    },
+    startGame: function () {
+      var arr = [];
+      for (var i = 0; i < this.playerCount; i++) {
+        arr[i] = {
+          "name": "P" + (i+1),
+          "goal": 501,
+          "throws": []
+        };
+      }
+      this.players = arr;
+    },
+    reset: function () {
+      this.players = null;
+    }
+  });
+  </script>
+</polymer-element>

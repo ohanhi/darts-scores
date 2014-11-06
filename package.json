@@ -1,0 +1,23 @@
+{
+  "name": "darts-score",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohanhi/darts-score.git"
+  },
+  "keywords": [
+    "Polymer",
+    "experiment"
+  ],
+  "author": "ohanhi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ohanhi/darts-score/issues"
+  },
+  "homepage": "https://github.com/ohanhi/darts-score"
+}
