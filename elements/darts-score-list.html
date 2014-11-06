@@ -26,7 +26,8 @@
       </template>
       <template if="{{!isWon}}">
         <div class="input" layout horizontal>
-          <paper-input label="Throw score" value="{{nextScore}}"></paper-input>
+          <paper-input type="number" min="0" max="180"
+            label="Throw score" value="{{nextScore}}"></paper-input>
           <div>
             <paper-icon-button icon="add" on-tap="{{addThrow}}"></paper-icon-button>
           </div>
