@@ -11,9 +11,14 @@
     }
     paper-input {
       padding: 0;
+      width: calc(100% - 40px);
     }
     paper-icon-button {
       color: #3f51b5;
+    }
+    .button-container {
+      float: right;
+      width: 40px;
     }
     </style>
     <div layout vertical>
@@ -25,10 +30,10 @@
         </div>
       </template>
       <template if="{{!isWon}}">
-        <div class="input" layout horizontal>
+        <div class="input">
           <paper-input type="number" min="0" max="180"
             label="Throw score" value="{{nextScore}}"></paper-input>
-          <div>
+          <div class="button-container">
             <paper-icon-button icon="add" on-tap="{{addThrow}}"></paper-icon-button>
           </div>
         </div>
