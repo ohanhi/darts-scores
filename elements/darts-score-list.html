@@ -50,13 +50,14 @@
       },
       addThrow: function () {
         var nextScore = parseInt(this.nextScore, 10);
-        var throws = this.player.throws;
-        if (this.total + nextScore > this.player.goal) {
-          nextScore = 0;
+        if (nextScore >= 0) {
+          if (this.total + nextScore > this.player.goal) {
+            nextScore = 0;
+          }
+          this.player.throws.push(nextScore);
         }
-        throws.push(nextScore);
         this.nextScore = "";
-        this.total = throws.reduce(this.sum);
+        this.total = this.player.throws.reduce(this.sum, 0);
         this.remaining = this.player.goal - this.total;
       },
       remainingChanged: function () {
