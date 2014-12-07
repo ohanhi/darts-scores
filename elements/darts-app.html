@@ -4,6 +4,10 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-slider/paper-slider.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/core-menu/core-menu.html">
+<link rel="import" href="../bower_components/paper-dropdown/paper-dropdown.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="darts-score-list.html">
 <polymer-element name="darts-app">
   <style>
@@ -32,14 +36,42 @@
       </core-toolbar>
       <section content layout vertical>
         <template if="{{!players}}">
-          <div>
+          <div layout vertical>
+
+            <div>Game</div>
+
+            <paper-dropdown-menu
+              label="Darts game">
+              <paper-dropdown class="dropdown">
+                <core-menu class="menu" selected="{{selectedGame}}">
+                  <template repeat="{{games}}">
+                    <paper-item>{{}}</paper-item>
+                  </template>
+                </core-menu>
+              </paper-dropdown>
+            </paper-dropdown-menu>
+
             <div>Number of players</div>
-            <paper-slider id="playerCount" value="{{playerCount}}" min="0" max="4" snaps pin editable></paper-slider>
+
+            <paper-slider
+              id="playerCount"
+              value="{{playerCount}}"
+              min="0"
+              max="4"
+              snaps
+              pin
+              editable></paper-slider>
 
             <div flex></div>
-            <paper-button disabled="{{playerCount < 1}}" raised on-tap="{{startGame}}">Go</paper-button>
+
+            <paper-button
+              disabled="{{!(selectedGame >= 0) || playerCount < 1}}"
+              raised
+              on-tap="{{startGame}}">Go</paper-button>
+
           </div>
         </template>
+
         <template if="{{players}}">
           <div layout horizontal>
             <template repeat="{{player in players}}">
@@ -47,6 +79,7 @@
             </template>
           </div>
         </template>
+
       </section>
     </core-scroll-header-panel>
   </template>
@@ -54,13 +87,18 @@
   Polymer('darts-app', {
     created: function () {
       this.reset();
+      this.games = [
+        501,
+        301,
+        201
+      ];
     },
     startGame: function () {
       var arr = [];
       for (var i = 0; i < this.playerCount; i++) {
         arr[i] = {
           "name": "P" + (i+1),
-          "goal": 501,
+          "goal": this.games[this.selectedGame],
           "throws": []
         };
       }
