@@ -62,6 +62,14 @@
               pin
               editable></paper-slider>
 
+            <template if="{{playerCount > 0}}">
+              <div>Player names</div>
+            </template>
+
+            <template repeat="{{foo in playersArray}}">
+              <paper-input value="{{foo.name}}"></paper-input>
+            </template>
+
             <div flex></div>
 
             <paper-button
@@ -93,15 +101,24 @@
         201
       ];
     },
-    startGame: function () {
+    playerCountChanged: function () {
       var arr = [];
       for (var i = 0; i < this.playerCount; i++) {
         arr[i] = {
-          "name": "P" + (i+1),
-          "goal": this.games[this.selectedGame],
-          "throws": []
+          "name": "P" + (i+1)
         };
       }
+      this.playersArray = arr;
+    },
+    startGame: function () {
+      var self = this;
+      var arr = this.playersArray.map(function(item){
+        return {
+          "name": item.name,
+          "goal": self.games[self.selectedGame],
+          "throws": []
+        };
+      });
       this.players = arr;
     },
     reset: function () {
