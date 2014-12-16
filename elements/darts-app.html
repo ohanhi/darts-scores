@@ -83,7 +83,7 @@
         <template if="{{players}}">
           <div layout horizontal>
             <template repeat="{{player in players}}">
-              <darts-score-list player="{{player}}"></darts-score-list>
+              <darts-score-list player="{{player}}" flex></darts-score-list>
             </template>
           </div>
         </template>
@@ -105,7 +105,7 @@
       var arr = [];
       for (var i = 0; i < this.playerCount; i++) {
         arr[i] = {
-          "name": "P" + (i+1)
+          "name": "Player " + (i+1)
         };
       }
       this.playersArray = arr;

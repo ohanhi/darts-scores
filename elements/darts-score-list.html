@@ -6,13 +6,25 @@
 <polymer-element name="darts-score-list" attributes="player">
   <template>
     <style>
+    :host {
+      display: block;
+      padding-right: 0.2rem;
+    }
+    .player {
+      margin: 0;
+      font-weight: 100;
+    }
+    .points-remaining {
+      margin: 0 0 0.5em;
+      font-weight: 700;
+    }
     .input {
       padding-top: 8px;
     }
     paper-input-decorator {
       box-sizing: border-box;
       padding: 0;
-      width: calc(100% - 40px);
+      width: 100%;
       display: inline-block !important;
     }
     paper-input-decorator input {
@@ -23,12 +35,17 @@
       color: #3f51b5;
     }
     .button-container {
-      float: right;
-      width: 40px;
+      text-align: center;
+    }
+    @media only screen and (min-width: 400px) {
+      :host {
+        padding-right: 0.6rem;
+      }
     }
     </style>
     <div layout vertical>
-      <h2 class="points-remaining">{{player.name}}: {{remaining}}</h2>
+      <h3 class="player">{{player.name}}</h3>
+      <h2 class="points-remaining">{{remaining}}</h2>
       <template repeat="{{throw in player.throws}}">
         <div class="throw">
           <template if="{{throw > 0}}">{{throw}}</template>
